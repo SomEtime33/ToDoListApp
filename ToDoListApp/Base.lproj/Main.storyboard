@@ -1,24 +1,331 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YUw-Ze-XiA">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Tasks-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="TasksViewController" customModule="ToDoListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhQ-Qk-0Nv">
+                                <rect key="frame" x="0.0" y="808" width="414" height="88"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="jG8-zJ-yyV"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="idq-vK-BQE" userLabel="Done Tasks Container View">
+                                <rect key="frame" x="0.0" y="140" width="414" height="668"/>
+                                <connections>
+                                    <segue destination="bNL-yo-zD3" kind="embed" id="dYc-6j-mzp"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udh-Rq-oH2" userLabel="Ongoing Tasks Container View">
+                                <rect key="frame" x="0.0" y="140" width="414" height="668"/>
+                                <connections>
+                                    <segue destination="Sqz-Ge-gCQ" kind="embed" id="XXA-yy-kdM"/>
+                                </connections>
+                            </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noG-4M-ntt">
+                                <rect key="frame" x="175" y="771" width="64" height="64"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="7aT-Fo-LGT"/>
+                                    <constraint firstAttribute="width" constant="64" id="tES-Hf-6WK"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="32"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addTaskButtonTappedWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cua-Qi-J3l"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="noG-4M-ntt" firstAttribute="firstBaseline" secondItem="bhQ-Qk-0Nv" secondAttribute="firstBaseline" id="15g-Ep-aV9"/>
+                            <constraint firstItem="idq-vK-BQE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="8NC-NM-g9x"/>
+                            <constraint firstItem="udh-Rq-oH2" firstAttribute="trailing" secondItem="idq-vK-BQE" secondAttribute="trailing" id="Fht-X2-WiA"/>
+                            <constraint firstItem="bhQ-Qk-0Nv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IEK-Su-5Py"/>
+                            <constraint firstItem="idq-vK-BQE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MoD-Ub-PfW"/>
+                            <constraint firstItem="noG-4M-ntt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N1G-X1-ilN"/>
+                            <constraint firstItem="bhQ-Qk-0Nv" firstAttribute="top" secondItem="idq-vK-BQE" secondAttribute="bottom" id="NxZ-Iy-HxE"/>
+                            <constraint firstAttribute="bottom" secondItem="bhQ-Qk-0Nv" secondAttribute="bottom" id="XYy-B7-llW"/>
+                            <constraint firstItem="udh-Rq-oH2" firstAttribute="top" secondItem="idq-vK-BQE" secondAttribute="top" id="Z3c-9i-d2h"/>
+                            <constraint firstItem="udh-Rq-oH2" firstAttribute="bottom" secondItem="idq-vK-BQE" secondAttribute="bottom" id="drr-yu-ig7"/>
+                            <constraint firstItem="idq-vK-BQE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="poF-zx-fh0"/>
+                            <constraint firstItem="bhQ-Qk-0Nv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="r4a-jt-hEj"/>
+                            <constraint firstItem="udh-Rq-oH2" firstAttribute="leading" secondItem="idq-vK-BQE" secondAttribute="leading" id="uch-k5-Zbj"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Tasks" id="xRg-4h-LDN">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="v5X-rN-ci8">
+                            <rect key="frame" x="141.5" y="6" width="131" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="First"/>
+                                <segment title="Second"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="DPO-VJ-AfM"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="doneTasksContainerView" destination="idq-vK-BQE" id="df7-bT-Vb4"/>
+                        <outlet property="menuSegmentedControl" destination="v5X-rN-ci8" id="zml-Zh-D6i"/>
+                        <outlet property="ongoingTasksContainerView" destination="udh-Rq-oH2" id="v4h-6d-3XW"/>
+                        <segue destination="YSO-Y0-8a6" kind="presentation" identifier="showNewTask" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="2bG-yl-JBo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="928.98550724637687" y="67.633928571428569"/>
+        </scene>
+        <!--New Task View Controller-->
+        <scene sceneID="TIf-WV-roL">
+            <objects>
+                <viewController id="YSO-Y0-8a6" customClass="NewTaskViewController" customModule="ToDoListApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kbm-Rh-IbR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1uR-Fm-nYh">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lF9-Oc-Yaq" userLabel="Container View">
+                                        <rect key="frame" x="0.0" y="568" width="414" height="328"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="emt-Of-wOj">
+                                                <rect key="frame" x="16" y="8" width="382" height="312"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a new task" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E4Z-0R-tFO">
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="40"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="qW3-Re-1i7"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="16"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fxo-xz-HRh">
+                                                        <rect key="frame" x="0.0" y="56" width="382" height="40"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faf-Xt-9lg">
+                                                                <rect key="frame" x="0.0" y="0.0" width="47" height="40"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="calendarButtonTapped:" destination="YSO-Y0-8a6" eventType="touchUpInside" id="KuY-Ym-o4o"/>
+                                                                </connections>
+                                                            </button>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBJ-op-Ty1">
+                                                                <rect key="frame" x="63" y="0.0" width="243.5" height="40"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGC-ty-ddE">
+                                                                <rect key="frame" x="322.5" y="0.0" width="59.5" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="DYB-Uq-wE3"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Save">
+                                                                    <fontDescription key="titleFontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="16"/>
+                                                                </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="saveButtonTapped:" destination="YSO-Y0-8a6" eventType="touchUpInside" id="YnM-70-oqL"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQD-Pf-fYF">
+                                                        <rect key="frame" x="0.0" y="112" width="382" height="200"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="200" id="Hy1-IZ-uac"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="emt-Of-wOj" firstAttribute="top" secondItem="lF9-Oc-Yaq" secondAttribute="top" constant="8" id="5Nt-4V-6Fj"/>
+                                            <constraint firstItem="emt-Of-wOj" firstAttribute="leading" secondItem="lF9-Oc-Yaq" secondAttribute="leading" constant="16" id="Bq9-L5-KAg"/>
+                                            <constraint firstAttribute="trailing" secondItem="emt-Of-wOj" secondAttribute="trailing" constant="16" id="dsf-Iz-Fhh"/>
+                                            <constraint firstAttribute="bottom" secondItem="emt-Of-wOj" secondAttribute="bottom" constant="8" id="o9y-QU-DyD"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="lF9-Oc-Yaq" firstAttribute="leading" secondItem="1uR-Fm-nYh" secondAttribute="leading" id="Chn-PT-XZ0"/>
+                                    <constraint firstAttribute="trailing" secondItem="lF9-Oc-Yaq" secondAttribute="trailing" id="d0M-xS-mzH"/>
+                                    <constraint firstAttribute="bottom" secondItem="lF9-Oc-Yaq" secondAttribute="bottom" id="xyR-rB-NQ0"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="oZd-YE-eig"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1uR-Fm-nYh" firstAttribute="leading" secondItem="oZd-YE-eig" secondAttribute="leading" id="P7w-h6-Mkl"/>
+                            <constraint firstItem="1uR-Fm-nYh" firstAttribute="trailing" secondItem="oZd-YE-eig" secondAttribute="trailing" id="UYe-QE-a9e"/>
+                            <constraint firstAttribute="bottom" secondItem="1uR-Fm-nYh" secondAttribute="bottom" id="Y7m-8y-5ME"/>
+                            <constraint firstItem="1uR-Fm-nYh" firstAttribute="top" secondItem="kbm-Rh-IbR" secondAttribute="top" id="aea-45-jsi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundView" destination="1uR-Fm-nYh" id="evT-Wz-OMV"/>
+                        <outlet property="containerView" destination="lF9-Oc-Yaq" id="6BQ-Jc-j8N"/>
+                        <outlet property="containerViewBottomConstraint" destination="xyR-rB-NQ0" id="p3r-Dn-y8Z"/>
+                        <outlet property="saveButton" destination="CGC-ty-ddE" id="4U6-4H-fRF"/>
+                        <outlet property="taskTextField" destination="E4Z-0R-tFO" id="dDj-6D-9o3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JDo-iu-vn8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1740.5797101449277" y="67.633928571428569"/>
+        </scene>
+        <!--Ongoing Tasks Table View Controller-->
+        <scene sceneID="jny-uU-epV">
+            <objects>
+                <tableViewController id="Sqz-Ge-gCQ" customClass="OngoingTasksTableViewController" customModule="ToDoListApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="jnZ-qH-ctb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="668"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellId" rowHeight="141" id="HVf-MX-QMx" customClass="OngoingTaskTableViewCell" customModule="ToDoListApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="141"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HVf-MX-QMx" id="7SO-G8-uvQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="141"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ZzG-Fr-NcP">
+                                            <rect key="frame" x="16" y="12" width="382" height="117"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NYR-P4-EMJ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="117"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="PUe-HU-qR6"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="actionButtonTapped:" destination="HVf-MX-QMx" eventType="touchUpInside" id="TMP-JE-36m"/>
+                                                    </connections>
+                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XD9-5o-sPT">
+                                                    <rect key="frame" x="40" y="0.0" width="342" height="117"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Some random task here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zhx-Hg-2qq">
+                                                            <rect key="frame" x="0.0" y="0.0" width="342" height="97.5"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="due in 3 days time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXT-z3-7wA">
+                                                            <rect key="frame" x="0.0" y="97.5" width="342" height="19.5"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ZzG-Fr-NcP" firstAttribute="top" secondItem="7SO-G8-uvQ" secondAttribute="top" constant="12" id="I6E-RE-xtt"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZzG-Fr-NcP" secondAttribute="trailing" constant="16" id="WU0-MT-K4S"/>
+                                        <constraint firstItem="ZzG-Fr-NcP" firstAttribute="leading" secondItem="7SO-G8-uvQ" secondAttribute="leading" constant="16" id="dCp-fd-TUe"/>
+                                        <constraint firstAttribute="bottom" secondItem="ZzG-Fr-NcP" secondAttribute="bottom" constant="12" id="qls-3Q-fAA"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="deadlineLabel" destination="rXT-z3-7wA" id="bPk-Q7-zgw"/>
+                                    <outlet property="titleLable" destination="zhx-Hg-2qq" id="ggW-1x-jjf"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Sqz-Ge-gCQ" id="suV-3P-nTf"/>
+                            <outlet property="delegate" destination="Sqz-Ge-gCQ" id="mqc-d3-W5K"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1hE-df-R8e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="494.20289855072468" y="733.92857142857144"/>
+        </scene>
+        <!--Done Tasks Table View Controller-->
+        <scene sceneID="70f-Bi-w57">
+            <objects>
+                <tableViewController id="bNL-yo-zD3" customClass="DoneTasksTableViewController" customModule="ToDoListApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="AnU-tB-tnv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="668"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PYu-Aa-MwE">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PYu-Aa-MwE" id="nD1-Gs-Xqg">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bNL-yo-zD3" id="Jao-Wf-eLE"/>
+                            <outlet property="delegate" destination="bNL-yo-zD3" id="RET-CH-wDX"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d9x-aE-j7M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1497" y="734"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ock-w2-Seu">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YUw-Ze-XiA" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="O0M-7a-1Tw">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="iJf-1C-MLG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SSI-5Q-Fie" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="67.633928571428569"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
