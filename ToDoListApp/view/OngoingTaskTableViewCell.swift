@@ -9,16 +9,22 @@ import UIKit
 
 class OngoingTaskTableViewCell: UITableViewCell {
     
+    var actionButtonDidTap:(() -> Void)?
     
     @IBOutlet weak var titleLable: UILabel!
     @IBOutlet weak var deadlineLabel: UILabel!
     
     func configure(with task: Task) {
         titleLable.text = task.title
+        deadlineLabel.text = task.deadline?.toRelativeString()
+        
+        if task.deadline?.isOverDue() == true {
+            deadlineLabel.textColor = .systemRed
+        }
     }
     
     @IBAction func actionButtonTapped(_ sender: UIButton){
-        
+        actionButtonDidTap?()
     }
     
 }

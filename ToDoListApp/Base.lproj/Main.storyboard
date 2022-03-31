@@ -32,7 +32,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udh-Rq-oH2" userLabel="Ongoing Tasks Container View">
                                 <rect key="frame" x="0.0" y="140" width="414" height="668"/>
                                 <connections>
-                                    <segue destination="Sqz-Ge-gCQ" kind="embed" id="XXA-yy-kdM"/>
+                                    <segue destination="Sqz-Ge-gCQ" kind="embed" identifier="showOngoingTasks" id="XXA-yy-kdM"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noG-4M-ntt">
@@ -125,7 +125,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fxo-xz-HRh">
                                                         <rect key="frame" x="0.0" y="56" width="382" height="40"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faf-Xt-9lg">
+                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faf-Xt-9lg" userLabel="Calendar Button">
                                                                 <rect key="frame" x="0.0" y="0.0" width="47" height="40"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system"/>
@@ -133,10 +133,12 @@
                                                                     <action selector="calendarButtonTapped:" destination="YSO-Y0-8a6" eventType="touchUpInside" id="KuY-Ym-o4o"/>
                                                                 </connections>
                                                             </button>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBJ-op-Ty1">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obF-8b-qdd">
                                                                 <rect key="frame" x="63" y="0.0" width="243.5" height="40"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                            </view>
+                                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                                <color key="textColor" systemColor="systemGrayColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGC-ty-ddE">
                                                                 <rect key="frame" x="322.5" y="0.0" width="59.5" height="40"/>
                                                                 <constraints>
@@ -192,6 +194,7 @@
                         <outlet property="backgroundView" destination="1uR-Fm-nYh" id="evT-Wz-OMV"/>
                         <outlet property="containerView" destination="lF9-Oc-Yaq" id="6BQ-Jc-j8N"/>
                         <outlet property="containerViewBottomConstraint" destination="xyR-rB-NQ0" id="p3r-Dn-y8Z"/>
+                        <outlet property="deadlineLabel" destination="obF-8b-qdd" id="xR8-ok-hV0"/>
                         <outlet property="saveButton" destination="CGC-ty-ddE" id="4U6-4H-fRF"/>
                         <outlet property="taskTextField" destination="E4Z-0R-tFO" id="dDj-6D-9o3"/>
                     </connections>
@@ -209,18 +212,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellId" rowHeight="141" id="HVf-MX-QMx" customClass="OngoingTaskTableViewCell" customModule="ToDoListApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="141"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellId" rowHeight="144" id="HVf-MX-QMx" customClass="OngoingTaskTableViewCell" customModule="ToDoListApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="144"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HVf-MX-QMx" id="7SO-G8-uvQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="141"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="144"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ZzG-Fr-NcP">
-                                            <rect key="frame" x="16" y="12" width="382" height="117"/>
+                                            <rect key="frame" x="16" y="12" width="382" height="120"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NYR-P4-EMJ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="117"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="120"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="24" id="PUe-HU-qR6"/>
                                                     </constraints>
@@ -231,16 +234,16 @@
                                                     </connections>
                                                 </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XD9-5o-sPT">
-                                                    <rect key="frame" x="40" y="0.0" width="342" height="117"/>
+                                                    <rect key="frame" x="40" y="0.0" width="342" height="120"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Some random task here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zhx-Hg-2qq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="342" height="97.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="342" height="100.5"/>
                                                             <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="due in 3 days time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXT-z3-7wA">
-                                                            <rect key="frame" x="0.0" y="97.5" width="342" height="19.5"/>
+                                                            <rect key="frame" x="0.0" y="100.5" width="342" height="19.5"/>
                                                             <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -282,13 +285,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PYu-Aa-MwE">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellId" rowHeight="66" id="PYu-Aa-MwE" customClass="DoneTaskTableViewCell" customModule="ToDoListApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PYu-Aa-MwE" id="nD1-Gs-Xqg">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="TxS-cc-jbP">
+                                            <rect key="frame" x="16" y="12" width="382" height="42"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMy-2f-7EU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="42"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="Cly-5Z-5Od"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="checkmark" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="actionButtonTappedWith_sender:" destination="PYu-Aa-MwE" eventType="touchUpInside" id="yEs-Yl-WC8"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some random task here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZx-Zn-Ypf">
+                                                    <rect key="frame" x="40" y="0.0" width="342" height="42"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="TxS-cc-jbP" secondAttribute="trailing" constant="16" id="IXj-ng-4pM"/>
+                                        <constraint firstAttribute="bottom" secondItem="TxS-cc-jbP" secondAttribute="bottom" constant="12" id="kXU-Xd-YGv"/>
+                                        <constraint firstItem="TxS-cc-jbP" firstAttribute="leading" secondItem="nD1-Gs-Xqg" secondAttribute="leading" constant="16" id="nky-99-ynB"/>
+                                        <constraint firstItem="TxS-cc-jbP" firstAttribute="top" secondItem="nD1-Gs-Xqg" secondAttribute="top" constant="12" id="oYi-6u-0Tv"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="oZx-Zn-Ypf" id="IAT-7w-oB8"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -299,7 +335,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d9x-aE-j7M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1497" y="734"/>
+            <point key="canvasLocation" x="1495.6521739130435" y="733.92857142857144"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ock-w2-Seu">
@@ -322,10 +358,14 @@
     </scenes>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
