@@ -76,6 +76,10 @@ class CalendarView: UIView {
         ])
     }
     
+    func selectDate(date: Date?) {
+        calendar.select(date, scrollToDate: true)
+    }
+    
     @objc func removeButtonTapped(_sender: UIButton) {
         if let selectedDate = calendar.selectedDate {
             calendar.deselect(selectedDate)

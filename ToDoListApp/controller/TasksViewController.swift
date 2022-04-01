@@ -14,6 +14,8 @@ class TasksViewController: UIViewController, Animatable {
     @IBOutlet weak var doneTasksContainerView: UIView!
     
     private let databaseManager = DatabeseManager()
+    private let authManager = AuthManager()
+    private let navigationManager = NavtigationManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,28 @@ class TasksViewController: UIViewController, Animatable {
         showContainerView(for: .ongoing)
     }
     
+    private func logoutUser() {
+        authManager.logout { [unowned self] (result) in
+            switch result {
+            case .success:
+                navigationManager.show(scene: .onboarding)
+            case .failure(let error):
+                self.showToast(state: .error, message: error.localizedDescription)
+            }
+        }
+    }
+    
+    private func showMenuOption() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let logoutAction = UIAlertAction(title: "Logout", style: .default) { [unowned self] _ in
+            self.logoutUser()
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(logoutAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     @IBAction func segmentedControlChanged(_ sender: UISegmentedControl) {
         
         switch sender.selectedSegmentIndex {
@@ -43,6 +67,10 @@ class TasksViewController: UIViewController, Animatable {
         default: break
         }
         
+    }
+    
+    @IBAction func menuButtonTapped(_sender: UIButton) {
+        showMenuOption()
     }
     
     private func showContainerView(for section: MenuSection) {
@@ -64,6 +92,11 @@ class TasksViewController: UIViewController, Animatable {
             let destination = segue.destination as?
             OngoingTasksTableViewController
             destination?.delegate = self
+        } else if segue.identifier == "showEditTask",
+            let destination = segue.destination as? NewTaskViewController,
+            let taskToEdit = sender as? Task {
+            destination.delegate = self
+            destination.taskToEdit = taskToEdit
         }
     }
     
@@ -77,6 +110,10 @@ class TasksViewController: UIViewController, Animatable {
             }
         }
     }
+    
+    private func editTask(task: Task) {
+        performSegue(withIdentifier: "showEditTask", sender: task)
+    }
  
     @IBAction func addTaskButtonTapped(_sender: UIButton) {
         performSegue(withIdentifier: "showNewTask", sender: nil)
@@ -84,6 +121,7 @@ class TasksViewController: UIViewController, Animatable {
 
 }
 extension TasksViewController: OngoingTasksTVCDelegate {
+    
     func showOptions(for task: Task) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -93,27 +131,41 @@ extension TasksViewController: OngoingTasksTVCDelegate {
           
             
         }
+        let editAction = UIAlertAction(title: "Edit", style: .default) { [unowned self] _ in
+            self.editTask(task: task)
+        }
         alertController.addAction(cancelAction)
         alertController.addAction(deleteAction)
+        alertController.addAction(editAction)
         present(alertController, animated: true, completion: nil)
     }
 }
-extension TasksViewController: TasksVDCelegate {
-    func didAddTask(_ task: Task) {
-        
-        presentedViewController?.dismiss(animated: true, completion: { [unowned self] in
-            self.databaseManager.addTask(task) { (result) in
+extension TasksViewController: NewTasksVDCelegate {
+    
+    func didEditTask(_ task: Task) {
+        presentedViewController?.dismiss(animated: true, completion: {
+            guard let id = task.id else { return }
+            self.databaseManager.editTask(id: id, title: task.title, deadline: task.deadline) { [weak self] (result) in
                 switch result {
                 case .success:
-                    print("yay")
+                    self?.showToast(state: .success, message: "Task Updated Successfully")
                 case .failure(let error):
-                    print("error: \(error.localizedDescription)")
+                    self?.showToast(state: .error, message: error.localizedDescription)
                 }
             }
         })
-        
-
     }
     
-    
+    func didAddTask(_ task: Task) {
+        
+        presentedViewController?.dismiss(animated: true, completion: { [unowned self] in
+            self.databaseManager.addTask(task) { [weak self] (result) in
+                switch result {
+                case .success:break
+                case .failure(let error):
+                    self?.showToast(state: .error, message: error.localizedDescription)
+                }
+            }
+        })
+    }
 }

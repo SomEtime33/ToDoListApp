@@ -17,12 +17,17 @@ class NewTaskViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var  deadlineLabel: UILabel!
     
+    
+    
+    private let authManager = AuthManager()
+    
     private var substribers = Set<AnyCancellable>()
+    var taskToEdit: Task? //다른 변수들에서도 접근 가능하도록 private으로 선언하지 않음
     
     @Published private var taskString: String?
     @Published private var deadline: Date?
     
-    weak var delegate: TasksVDCelegate?
+    weak var delegate: NewTasksVDCelegate?
     
     private lazy var calendarView: CalendarView = {
         let view = CalendarView()
@@ -34,7 +39,7 @@ class NewTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        setupViews()
         setupGesture()
         observeKeyboard()
         observeForm()
@@ -66,9 +71,16 @@ class NewTaskViewController: UIViewController {
         
     }
     
-    private func setupView() {
+    private func setupViews() {
         backgroundView.backgroundColor = UIColor.init(white: 0.3, alpha: 0.4)
         containerViewBottomConstraint.constant = -containerView.frame.height
+        if let taskToEdit = self.taskToEdit {
+            taskTextField.text = taskToEdit.title
+            taskString = taskToEdit.title
+            deadline = taskToEdit.deadline
+            saveButton.setTitle("Update", for: .normal)
+            calendarView.selectDate(date: taskToEdit.deadline)
+        }
     }
     
     private func setupGesture() { //다른 곳 누르면 키보드 들어감
@@ -136,9 +148,20 @@ class NewTaskViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         
-        guard let taskString = self.taskString else {return}
-        let task = Task(title: taskString, deadline: deadline)
-        delegate?.didAddTask(task)
+        guard let taskString = self.taskString, let uid = authManager.getUserID() else {return}
+        
+        
+        var task = Task(title: taskString, deadline: deadline, uid: uid)
+
+        if let id = taskToEdit?.id {
+            task.id = id
+        }
+        
+        if taskToEdit == nil {
+            delegate?.didAddTask(task)
+        } else {
+            delegate?.didEditTask(task)
+        }
         
     }
 }

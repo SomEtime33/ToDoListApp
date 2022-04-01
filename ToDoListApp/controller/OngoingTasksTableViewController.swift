@@ -15,6 +15,7 @@ protocol OngoingTasksTVCDelegate: class {
 class OngoingTasksTableViewController: UITableViewController,Animatable {
     
     private let databaseManager = DatabeseManager()
+    private let authManager = AuthManager()
     
     
     private var tasks: [Task] = [] {
@@ -32,7 +33,11 @@ class OngoingTasksTableViewController: UITableViewController,Animatable {
     
     private func addTasksListener() {
         
-        databaseManager.addTasksListener(forDoneTasks: false) { [weak self](result) in
+        guard let uid = authManager.getUserID() else {
+            print("no user found")
+            return }
+        
+        databaseManager.addTasksListener(forDoneTasks: false, uid: uid) { [weak self](result) in
             switch result {
             case .success(let tasks):
                 self?.tasks = tasks

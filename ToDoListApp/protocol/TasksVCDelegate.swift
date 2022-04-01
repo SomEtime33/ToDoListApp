@@ -7,6 +7,7 @@
 
 import Foundation
 
-protocol TasksVDCelegate: class {
+protocol NewTasksVDCelegate: class {
     func didAddTask(_ task: Task)
+    func didEditTask(_ task: Task)
 }
